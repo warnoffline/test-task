@@ -22,6 +22,14 @@ function AddPet() {
     const {register, handleSubmit, reset, formState: {errors}} = useForm({ resolver: yupResolver(PetSchema) })
     const [countTags, setCountTags] = useState<string[]>([]);
     const [photo, setPhoto]:any = useState([])
+    const [countPhoto, setCountPhoto] = useState<string[]>([])
+    const handlePhotos = () => {
+        const newTag: string = `Item ${countPhoto.length + 1}`;
+        if(countPhoto.length < 8){
+            setCountPhoto([...countPhoto, newTag]);
+        }
+      };
+      
     const handleTags = () => {
         const newTag: string = `Item ${countTags.length + 1}`;
         if(countTags.length < 10){
@@ -38,6 +46,10 @@ function AddPet() {
                 "name": data[`name_tags_${index}`]
             })
         })
+        const newPhotos:any = []
+        countPhoto.map((item, index) => {
+          newPhotos.push(data[`photoUrls_${index}`])
+        })
         console.log(photo)
         console.log('asfd')
         console.log(formData.get('photoUrls'))
@@ -49,9 +61,7 @@ function AddPet() {
                 "name": data.name_category
             },
             "name": data.name,
-            "photoUrls": [
-              data.photoUrls
-            ],
+            "photoUrls": newPhotos,
             "tags": arr,
             "status": data.select
         }
@@ -60,12 +70,8 @@ function AddPet() {
         onClose()
         reset();
         setCountTags([]);
+        setCountPhoto([])
     }
-    const handleChange = (e) =>{
-      console.log(e.target.files)
-      setPhoto(e.target.files[0])
-    }
-   
     return <> 
         <Button colorScheme='green' mt={4} onClick={onOpen}>
         Создать
@@ -92,8 +98,12 @@ function AddPet() {
                 <option value="pending">Рассматриваемый</option>
                 <option value="sold">Продано</option>
             </Select>
-            <label>Загрузить фото</label>
-            <Input variant='filled' placeholder="Ссылка на фото" {...register('photoUrls')}/>
+            {countPhoto.length > 0 && <label>Загрузить фото</label>}
+            {countPhoto.map((item, index) => (
+              // @ts-ignore: Unreachable code error
+              <Input variant='filled' {...register(`photoUrls_${index}`)} placeholder="Ссылка на фото"/>
+            ))}
+            <Button onClick={handlePhotos} variant='ghost' colorScheme="blue">Добавить фото</Button>
             {countTags.length > 0 ? <label htmlFor="name_tags">Тег</label> : ''}
             <div className="tags">
             {

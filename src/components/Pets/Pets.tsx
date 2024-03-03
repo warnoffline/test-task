@@ -4,10 +4,18 @@ import { Text, Button,
 import './Pets.css'
 import PetCard from "../PetCard/PetCard.tsx";
 function Pets({dataById, dataByStatus, setDataById, setDataByStatus}) {
-    const [dataStatus, setDataStatus] = useState<object>({})
+    const [dataStatus, setDataStatus] = useState<any>({})
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-
+    useEffect(() => {
+        if (dataStatus && dataStatus.id) {
+            const newData = [...dataByStatus];
+            const index = newData.findIndex(item => item.id === dataStatus.id);
+            newData[index] = dataStatus;
+            setDataByStatus(newData);
+        }
+    }, [dataStatus]);
+    
     let totalPages = 0;
     let displayedData:object[] = [];
     
@@ -38,7 +46,7 @@ function Pets({dataById, dataByStatus, setDataById, setDataByStatus}) {
                     <Text fontSize='4xl'>Результат поиска по статусу:</Text>
                     <div className="pets__cards">
                     {displayedData.map((data, index) => (
-                        <PetCard setDataPetCard={setDataById} dataPetCard={data} ></PetCard>
+                        <PetCard setDataPetCard={setDataStatus} dataPetCard={data} ></PetCard>
                     ))}         
                     </div>
                     <div className="pets__pagination">

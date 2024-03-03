@@ -16,9 +16,15 @@ import { Card, CardBody,CardHeader, Text,CardFooter, Tag, Select,
 function PetCard({dataPetCard, setDataPetCard }) {
     const {register, handleSubmit, formState: {errors}} = useForm({ resolver: yupResolver(PetSchema) })
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [oldTags, setOldTags] = useState<any[]>([])
-    const [newTags, setNewTags] = useState<any[]>([])
-
+    const [countPhoto, setCountPhoto] = useState<string[]>([])
+    const [lengthPhotos, setLengthPhotos] = useState<any>()
+    const handlePhotos = () => {
+        const newTag: string = `Item ${countPhoto.length + 1}`;
+        if(countPhoto.length < 5){
+            setCountPhoto([...countPhoto, newTag]);
+        }
+      };
+      
     const onSubmit = (data:any) => {
         const arr:any = []
         const oldArr:any = [...dataPetCard.tags];
@@ -28,16 +34,24 @@ function PetCard({dataPetCard, setDataPetCard }) {
                 "name": data[`name_tags_${index}`] || item.name
             })
         })
+        const newPhotos:any = []
+        const oldPhotos:any = [...dataPetCard.photoUrls];
+
+        oldPhotos.map((item, index) => {
+            newPhotos.push(item)
+        })
+        countPhoto.map((item, index) => {
+            newPhotos.push(data[`photoUrls_${index}`])
+        })
+        
         const newPet = {
             "id": dataPetCard.id,
             "category": {
-                "id": dataPetCard.category.id,
+                "id": Date.now(),
                 "name": data.name_category
             },
             "name": data.name,
-            "photoUrls": [  
-                `${dataPetCard.photoUrls}`
-            ],
+            "photoUrls": newPhotos,
             "tags": arr,
             "status": data.select
         }
@@ -45,7 +59,9 @@ function PetCard({dataPetCard, setDataPetCard }) {
             info => setDataPetCard(info)
         )
         onClose();
+        setCountPhoto([]);
     }
+    
     const handleDeleteButton = () => {
         deletePet(dataPetCard.id).then(
             info => {
@@ -71,21 +87,35 @@ function PetCard({dataPetCard, setDataPetCard }) {
         <CardBody>
             <Text fontSize='2xl'>Категория: {dataPetCard?.category?.name}</Text>
         </CardBody>
-        <CardFooter className="pet__card__footer">
-        {dataPetCard?.tags.map(tag => 
-                (<Tag colorScheme="blue">{tag?.name}</Tag>))}
-        </CardFooter>
+        {dataPetCard && dataPetCard.tags && dataPetCard.tags.length > 0 && (
+  <CardFooter className="pet__card__footer">
+    {dataPetCard.tags.map(tag => (
+      <Tag colorScheme="blue">{tag?.name}</Tag>
+    ))}
+  </CardFooter>
+)}
     </Card>
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal size='4xl' isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <form onSubmit={handleSubmit(onSubmit)}>
-    <ModalContent>
+    <ModalContent className="modal__content__change">
       <ModalHeader>Изменение животного</ModalHeader>
       <ModalCloseButton />
-      <ModalBody className='modal__body'>
-      {dataPetCard?.photoUrls && <img className="card__image" src={dataPetCard?.photoUrls[0]} alt="" /> }
-      <Input />
-      <Button colorScheme="blue">Добавить фото</Button>
+      <ModalBody className='modal__body__change'>
+        <div className="change_pet_images">
+        {dataPetCard?.photoUrls && dataPetCard?.photoUrls.map((item, index) => 
+           <div className="card__image__modal">
+             <img className="card__img__into" src={item} alt=""/>
+           </div>
+      ) }</div>
+      {
+            countPhoto.map((tag,index) => (
+                // @ts-ignore: Unreachable code error
+                <Input key={index} variant='filled' placeholder="Ссылка на фото" {...register(`photoUrls_${index}`)} /> 
+            ))             
+        }
+      <Button onClick={handlePhotos} colorScheme="blue">Добавить фото</Button>
+      
         <Text fontSize='2xl'>Имя:</Text>
       {
         dataPetCard?.name ? (
@@ -119,8 +149,9 @@ function PetCard({dataPetCard, setDataPetCard }) {
                 <option value="pending">Рассматриваемый</option>
                 <option value="sold">Продано</option>
         </Select>
-      {dataPetCard.tags.length > 0 && <Text fontSize='2xl'>Теги:</Text>}
-      {dataPetCard?.tags.map((tag, index) => 
+      {dataPetCard?.tags.length > 0 && <Text fontSize='2xl'>Теги:</Text>}
+      <div className="tags_change_modal">
+      {dataPetCard && dataPetCard?.tags.map((tag, index) => 
                 (
                     <div className="tags_change">
                     <Editable  defaultValue={tag?.name}>
@@ -131,6 +162,7 @@ function PetCard({dataPetCard, setDataPetCard }) {
                 <Button onClick={() => handleDeleteTag(index)} colorScheme="red"><img src="./trash.svg" alt="" /></Button>
                     </div>
                 ))}
+                </div>
       </ModalBody>
       <ModalFooter>
         <Button type='submit' colorScheme='green' mr={3}>Сохранить</Button>

@@ -23,3 +23,36 @@
     display: flex;
     justify-content: space-between;
 }
+.tags_change_modal{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.change_pet_images{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.card__image__modal{
+    width: 30%;
+    border-radius: 16px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+.card__image__modal:hover{
+    transform: scale(1.025);
+    transition: 0.3s;
+}
+.modal__body__change{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.card__img__into{
+    width: 95%;
+    border-radius: 16px;
+}
