@@ -1,0 +1,29 @@
+.pets__center{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.pets__part{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.pets__cards{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+.pets__pagination{
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}

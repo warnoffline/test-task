@@ -1,0 +1,14 @@
+.tags{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.modal__body{
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+.error{
+    color: red;
+    font-size: 14px;
+}

@@ -1,0 +1,11 @@
+.find{
+    display: flex;
+    gap: 20px;
+    width: 30%;
+}
+.find_el{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
