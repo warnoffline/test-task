@@ -56,3 +56,8 @@
     width: 95%;
     border-radius: 16px;
 }
+@media screen and (max-width: 600px) and (min-width: 300px){
+    .pet__card{
+        width: 100%;
+    }
+}

@@ -51,7 +51,6 @@ function AddPet() {
           newPhotos.push(data[`photoUrls_${index}`])
         })
         const newPet = {
-            "id": data.id,
             "category": {
                 "id": Date.now(),
                 "name": data.name_category
@@ -69,7 +68,7 @@ function AddPet() {
         setCountPhoto([])
     }
     return <> 
-        <Button colorScheme='green' mt={4} onClick={onOpen}>
+        <Button className='btn_create' colorScheme='green' mt={4} onClick={onOpen}>
         Создать
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -79,9 +78,7 @@ function AddPet() {
           <ModalHeader>Создать животное</ModalHeader>
           <ModalCloseButton />
           <ModalBody className="modal__body">
-            <label htmlFor="id">id</label>
-            <Input type="text" {...register('id')}/>
-            <p className="error">{errors?.id?.message}</p>
+            
             <label htmlFor="name">Имя</label>
             <Input variant='filled' placeholder='Имя' {...register('name')} />
             <p className="error">{errors?.name?.message}</p>
