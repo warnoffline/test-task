@@ -1,3 +1,9 @@
+# Установка репозитория
+
+Для запуска проекта запустите команду в директории, откуда вы планируете запустить проект. 
+
+## `git clone https://github.com/warnoffline/test-task`
+
 # Запуск проекта
 
 Для быстрого просмотра сайта перейдите на [https://test-task-five-omega.vercel.app](https://test-task-five-omega.vercel.app)
