@@ -62,11 +62,11 @@ function AddPet() {
             "status": data.select
         }
         addPet(newPet)
-        console.log(data.photoUrls)
         onClose()
         reset();
         setCountTags([]);
-        setCountPhoto([])
+        setCountPhoto([]);
+        window.location.reload()
     }
     return <> 
         <Button className='btn_create' colorScheme='green' mt={4} onClick={onOpen}>
@@ -79,7 +79,6 @@ function AddPet() {
           <ModalHeader>Создать животное</ModalHeader>
           <ModalCloseButton />
           <ModalBody className="modal__body">
-            
             <label htmlFor="name">Имя</label>
             <Input variant='filled' placeholder='Имя' {...register('name')} />
             <p className="error">{errors?.name?.message}</p>
