@@ -107,7 +107,7 @@ function AddPet() {
             }
             </div>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className="foot">
           <Button colorScheme='blue' onClick={() => handleTags()} mr={3}>Добавить тег</Button>
             <Button colorScheme="green" mr={3} type="submit">
                 Добавить

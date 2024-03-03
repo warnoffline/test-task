@@ -164,7 +164,7 @@ function PetCard({dataPetCard, setDataPetCard }) {
                 ))}
                 </div>
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter className="foot">
         <Button type='submit' colorScheme='green' mr={3}>Сохранить</Button>
         <Button colorScheme="orange" onClick={handleDeleteButton} mr={3}>Удалить</Button>
         <Button colorScheme='red' mr={3} onClick={onClose}>
