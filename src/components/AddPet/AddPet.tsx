@@ -51,6 +51,7 @@ function AddPet() {
           newPhotos.push(data[`photoUrls_${index}`])
         })
         const newPet = {
+            "id": Date.now(),
             "category": {
                 "id": Date.now(),
                 "name": data.name_category
