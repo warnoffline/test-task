@@ -35,7 +35,7 @@ function Pets({dataById, dataByStatus, setDataById, setDataByStatus}) {
         <div className="pets__center">
             {dataById && 
                 <div className="pets__part">
-                    <Text fontSize='4xl'>Результат поиска по айди:</Text>
+                    <Text fontSize='4xl'>Результат поиска по ID:</Text>
                     <div className="pets__cards">
                         <PetCard setDataPetCard={setDataById} dataPetCard={dataById} ></PetCard>
                     </div>

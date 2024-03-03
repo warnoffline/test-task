@@ -50,10 +50,6 @@ function AddPet() {
         countPhoto.map((item, index) => {
           newPhotos.push(data[`photoUrls_${index}`])
         })
-        console.log(photo)
-        console.log('asfd')
-        console.log(formData.get('photoUrls'))
-        console.log('asffsdg')
         const newPet = {
             "id": data.id,
             "category": {
@@ -94,8 +90,8 @@ function AddPet() {
             <p className="error">{errors?.name_category?.message}</p>
             <label>Статус</label>
             <Select variant='filled' {...register('select')}>
-                <option value="available">Доступный</option>
-                <option value="pending">Рассматриваемый</option>
+                <option value="available">Доступен</option>
+                <option value="pending">Рассматривается</option>
                 <option value="sold">Продано</option>
             </Select>
             {countPhoto.length > 0 && <label>Загрузить фото</label>}

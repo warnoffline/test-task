@@ -145,8 +145,8 @@ function PetCard({dataPetCard, setDataPetCard }) {
         <p className="error">{errors?.name_category?.message}</p>
       <Text fontSize='2xl'>Статус:</Text>
       <Select defaultValue={dataPetCard?.status} variant='filled' {...register('select')}>
-                <option value="available">Доступный</option>
-                <option value="pending">Рассматриваемый</option>
+                <option value="available">Доступен</option>
+                <option value="pending">Рассматривается</option>
                 <option value="sold">Продано</option>
         </Select>
       {dataPetCard?.tags.length > 0 && <Text fontSize='2xl'>Теги:</Text>}

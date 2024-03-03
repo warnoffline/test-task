@@ -7,8 +7,8 @@ function FindPets({register, onSubmit, handleSubmit, setById, setByStatus}) {
         <form onSubmit={handleSubmit(onSubmit)} className='find'>
             <div className='find_el'>
             <Select {...register('select_status')} variant='filled'>
-                <option value="available">Доступный</option>
-                <option value="pending">Рассматриваемый</option>
+                <option value="available">Доступен</option>
+                <option value="pending">Рассматривается</option>
                 <option value="sold">Продано</option>
             </Select>
             <Button type='submit' onClick={() => setByStatus(true)} colorScheme='messenger'>Найти по статусу</Button>
